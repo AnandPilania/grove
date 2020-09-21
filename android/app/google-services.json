@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "533658900660",
+    "firebase_url": "https://vdart-d016c.firebaseio.com",
+    "project_id": "vdart-d016c",
+    "storage_bucket": "vdart-d016c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533658900660:android:c22ad51c013ee5e544dfe1",
+        "android_client_info": {
+          "package_name": "com.tailermade.vdart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533658900660-gvmpkqutj9j8l8gpq3e1g071bqrabcl0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tailermade.vdart",
+            "certificate_hash": "f17c3b7f059f0b39d3c0365afb741f013df3ed59"
+          }
+        },
+        {
+          "client_id": "533658900660-11neiptb734l6dog7ll0amn966hn348h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi_70wl_abKezQfLIveiL8O4CzlC6RqfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533658900660-11neiptb734l6dog7ll0amn966hn348h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

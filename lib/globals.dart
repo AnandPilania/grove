@@ -1,0 +1,2 @@
+String checknet;
+List notilist = [];
