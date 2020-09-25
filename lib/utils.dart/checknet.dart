@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:vdart/globals.dart';
-import 'package:vdart/netcheckdialogue.dart';
+import 'package:vdart/utils.dart/globals.dart';
+import 'package:vdart/utils.dart/netcheckdialogue.dart';
 
 checkingnet(BuildContext context) async {
   try {

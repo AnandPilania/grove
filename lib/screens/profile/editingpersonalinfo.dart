@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:vdart/globals.dart';
-import 'package:vdart/profile/infodata.dart';
+import 'package:vdart/screens/profile/infodata.dart';
+import 'package:vdart/utils.dart/globals.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
-class DependentEditingPage extends StatefulWidget {
+class EditingPage extends StatefulWidget {
   @override
-  _DependentEditingPage createState() => _DependentEditingPage();
+  _EditingPage createState() => _EditingPage();
 }
 
-class _DependentEditingPage extends State<DependentEditingPage> {
-  String _dropDownNationalValue, _dropDownGenderValue;
-  DateTime pickedDatedob, pickedDatees, pickedDateee;
+class _EditingPage extends State<EditingPage> {
+  String _dropDownNationalValue, _dropDownMaritalValue, _dropDownGenderValue;
+  DateTime pickedDate;
   double ht, wt;
   List genderlist = ['Male', 'Female'];
+  List maritallist = ['Single', 'Married'];
   List nationallist = [
     'Afghan',
     'Albanian',
@@ -56,25 +57,21 @@ class _DependentEditingPage extends State<DependentEditingPage> {
       fontWeight: FontWeight.w500,
       color: Colors.blueGrey[400]);
   InfoData i = new InfoData();
-  String firstname,
-      lastname,
+  String fullname,
       dob,
       national,
+      emailadd,
+      phnno,
       gender,
-      relation,
-      city,
-      district,
-      pid,
+      marital,
       personaltax,
-      estartdate,
-      eenddate;
+      socialinsurane,
+      healthinsurance;
   @override
   void initState() {
     //  i.data();
     //remodify the pickeddate value as from DB
-    pickedDatedob = DateTime.now();
-    pickedDatees = DateTime.now();
-    pickedDateee = DateTime.now();
+    pickedDate = DateTime.now();
   }
 
   @override
@@ -124,7 +121,8 @@ class _DependentEditingPage extends State<DependentEditingPage> {
                       ),
                       onTap: () {
                         // _savedData();
-                        notilist.add("Dependent Information has been changed");
+                        notilist.add(
+                            "Your information in Personal Info has been changed");
                         print("saved");
                         Navigator.pop(context);
                       },
@@ -142,25 +140,21 @@ class _DependentEditingPage extends State<DependentEditingPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(padding: EdgeInsets.all(7.0), child: _buildHead()),
-                    combo('First Name *', i.dfname, 1, 'E.g.Phong'),
-                    combo('Last Name *', i.dlname, 2, 'E.g.Nguyen Thi'),
+                    combo('First Name *', i.fullNameC, 1),
+                    combo('Last Name *', i.fullNameC, 2),
                     // combo('Date of Birth', i.dobC, 3),
                     dobField('Date of Birth', 3),
                     chooseNationalDropBox('Nationality'),
-                    chooseGenderDropBox('Gender'),
-
                     //  combo('Nationality', i.nationalityC, 4),
-                    combo('Relationship', i.drelation, 4, 'Relationship'),
-                    combo('City', i.dcity, 5, 'City'),
-                    combo('District', i.ddistrict, 6, 'District'),
-                    combo('Personal ID', i.dpersonalid, 7, 'Personal ID'),
-
+                    combo('Email Address *', i.emailC, 5),
+                    combo('Phone Number', i.phnnoC, 6),
+                    chooseGenderDropBox('Gender'),
+                    // combo('Gender', i.genderC, 7),
+                    chooseMaritalDropBox('Marital Status'),
                     // combo('Marital Status', i.maritalC, 7),
-                    combo('Personal Tax ID', i.dpersonaltax, 8,
-                        'Personal Tax ID'),
-
-                    eSField('Effective Start Date', 9),
-                    eeField('Effective End Date', 10),
+                    combo('Personal Tax ID', i.personaltax, 9),
+                    combo('Social Insurance', i.socialInsurance, 10),
+                    combo('Health Insurance', i.healthInsurance, 11),
 
                     /*   ListTile(
                       title: Text(
@@ -329,6 +323,83 @@ class _DependentEditingPage extends State<DependentEditingPage> {
             ]));
   }
 
+  Widget chooseMaritalDropBox(String label) {
+    return Container(
+        padding: EdgeInsets.all(4.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              _buildLabel(label),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                color: cardColor,
+                child: Center(
+                  child: DropdownButton(
+                    iconEnabledColor: Colors.green[300],
+                    iconDisabledColor: Colors.green[300],
+                    underline: SizedBox(height: 0.8),
+                    hint: _dropDownMaritalValue == null
+                        ? Center(
+                            child: Text(
+                            "Select Marital Status",
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: Colors.blueGrey[300],
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          ))
+                        : Center(
+                            child: Text(
+                            _dropDownMaritalValue,
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: fontColor,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          )),
+                    isExpanded: true,
+                    iconSize: 28.0,
+                    style: TextStyle(
+                        fontSize: wt / 30,
+                        color: Colors.black,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w600),
+                    isDense: false,
+                    items: maritallist.map(
+                      (val) {
+                        return DropdownMenuItem<String>(
+                          value: val,
+                          child: Text(
+                            val,
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: fontColor,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (val) {
+                      setState(
+                        () {
+                          _dropDownMaritalValue = val;
+                          marital = val;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              )
+            ]));
+  }
+
   Widget dobField(String label, int i) {
     return Container(
         padding: EdgeInsets.all(4.0),
@@ -346,7 +417,7 @@ class _DependentEditingPage extends State<DependentEditingPage> {
                       child: ListTile(
                     title: Center(
                       child: Text(
-                        "${pickedDatedob.day} ${months[pickedDatedob.month - 1]} ${pickedDatedob.year}",
+                        "${pickedDate.day} ${months[pickedDate.month - 1]} ${pickedDate.year}",
                         style: TextStyle(
                             fontSize: wt / 26,
                             height: 1,
@@ -360,12 +431,12 @@ class _DependentEditingPage extends State<DependentEditingPage> {
                       size: 20,
                       color: Colors.green[300],
                     ),
-                    onTap: _pickDateDOB,
+                    onTap: _pickDate,
                   )))
             ]));
   }
 
-  Widget eSField(String label, int i) {
+  Widget combo(String label, TextEditingController t, int i) {
     return Container(
         padding: EdgeInsets.all(4.0),
         child: Column(
@@ -373,88 +444,51 @@ class _DependentEditingPage extends State<DependentEditingPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               _buildLabel(label),
-              Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  color: cardColor,
-                  child: Center(
-                      child: ListTile(
-                    title: Center(
-                      child: Text(
-                        "${pickedDatees.day} ${months[pickedDatees.month - 1]} ${pickedDatees.year}",
-                        style: TextStyle(
-                            fontSize: wt / 26,
-                            height: 1,
-                            color: fontColor,
-                            letterSpacing: 0.5,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.date_range,
-                      size: 20,
-                      color: Colors.green[300],
-                    ),
-                    onTap: _pickDateES,
-                  )))
+              _buildField(t, i),
             ]));
   }
 
-  Widget eeField(String label, int i) {
-    return Container(
-        padding: EdgeInsets.all(4.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildLabel(label),
-              Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  color: cardColor,
-                  child: Center(
-                      child: ListTile(
-                    title: Center(
-                      child: Text(
-                        "${pickedDateee.day} ${months[pickedDateee.month - 1]} ${pickedDateee.year}",
-                        style: TextStyle(
-                            fontSize: wt / 26,
-                            height: 1,
-                            color: fontColor,
-                            letterSpacing: 0.5,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.date_range,
-                      size: 20,
-                      color: Colors.green[300],
-                    ),
-                    onTap: _pickDateEE,
-                  )))
-            ]));
-  }
+  _savedData() {
+    print("Current saved Data is:\n" +
+        fullname +
+        "\n" +
+        dob +
+        "\n" +
+        national +
+        "\n" +
+        emailadd +
+        "\n" +
+        phnno +
+        "\n" +
+        gender +
+        "\n" +
+        marital +
+        "\n" +
+        personaltax +
+        "\n" +
+        socialinsurane +
+        "\n" +
+        healthinsurance);
+    setState(() {
+      i.fullNameC.text = fullname;
+      //  i.dobC.text = dob;
+      // i.nationalityC.text = national;
+      i.emailC.text = emailadd;
+      i.phnnoC.text = phnno;
+      //  i.genderC.text = gender;
+      //  i.maritalC.text = marital;
+      i.personaltax.text = personaltax;
+      i.socialInsurance.text = socialinsurane;
+      i.healthInsurance.text = healthinsurance;
 
-  Widget combo(String label, TextEditingController t, int i, String hint) {
-    return Container(
-        padding: EdgeInsets.all(4.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildLabel(label),
-              _buildField(t, i, hint),
-            ]));
+      //print("controller:" + i.fullNameC.text + "and" + fullname);
+    });
   }
-
-  _savedData() {}
 
   Widget _buildHead() {
     return Text(
-      "Dependents",
-      style: hst.copyWith(fontSize: wt / 20),
+      "Personal Info",
+      style: hst.copyWith(fontSize: wt / 19),
     );
   }
 
@@ -462,7 +496,7 @@ class _DependentEditingPage extends State<DependentEditingPage> {
     return Text(label, style: lst.copyWith(fontSize: wt / 25));
   }
 
-  Widget _buildField(TextEditingController c, int index, String hint) {
+  Widget _buildField(TextEditingController c, int index) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
@@ -478,23 +512,25 @@ class _DependentEditingPage extends State<DependentEditingPage> {
             setState(() {
               print("After changed" + c.text);
               if (index == 1) {
-                firstname = value;
+                fullname = value;
               } else if (index == 2) {
-                lastname = value;
+                dob = value;
+              } else if (index == 3) {
+                national = value;
               } else if (index == 4) {
-                relation = value;
+                emailadd = value;
               } else if (index == 5) {
-                city = value;
+                phnno = value;
               } else if (index == 6) {
-                district = value;
+                gender = value;
               } else if (index == 7) {
-                pid = value;
+                marital = value;
               } else if (index == 8) {
                 personaltax = value;
               } else if (index == 9) {
-                estartdate = value;
+                socialinsurane = value;
               } else if (index == 10) {
-                eenddate = value;
+                healthinsurance = value;
               }
               // = value;
             });
@@ -507,13 +543,6 @@ class _DependentEditingPage extends State<DependentEditingPage> {
               letterSpacing: 0.5,
               fontWeight: FontWeight.w500),
           decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: TextStyle(
-                fontSize: wt / 26,
-                height: 1,
-                color: Colors.blueGrey[300],
-                letterSpacing: 0.5,
-                fontWeight: FontWeight.w500),
             suffixIcon: Icon(
               Icons.edit,
               size: 22,
@@ -528,42 +557,16 @@ class _DependentEditingPage extends State<DependentEditingPage> {
     );
   }
 
-  _pickDateDOB() async {
+  _pickDate() async {
     DateTime date = await showDatePicker(
       context: context,
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime(DateTime.now().year + 5),
-      initialDate: pickedDatedob,
+      initialDate: pickedDate,
     );
     if (date != null)
       setState(() {
-        pickedDatedob = date;
-      });
-  }
-
-  _pickDateES() async {
-    DateTime date = await showDatePicker(
-      context: context,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-      initialDate: pickedDatees,
-    );
-    if (date != null)
-      setState(() {
-        pickedDatees = date;
-      });
-  }
-
-  _pickDateEE() async {
-    DateTime date = await showDatePicker(
-      context: context,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-      initialDate: pickedDateee,
-    );
-    if (date != null)
-      setState(() {
-        pickedDateee = date;
+        pickedDate = date;
       });
   }
 }

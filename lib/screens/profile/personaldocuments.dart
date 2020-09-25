@@ -3,10 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vdart/profile/editingjobinfo.dart';
-import 'package:vdart/profile/editingpersonalinfo.dart';
-import 'package:vdart/profile/infodata.dart';
-import 'package:vdart/signin.dart';
+import 'package:vdart/screens/profile/infodata.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
 class PersonalDoc extends StatefulWidget {
@@ -17,6 +14,7 @@ class PersonalDoc extends StatefulWidget {
 class _PersonalDoc extends State<PersonalDoc> {
   double ht, wt;
   int _fileExist = 0;
+  bool _loading = false;
 
   var hst = TextStyle(
       color: fontColor, letterSpacing: 1, fontWeight: FontWeight.w700);

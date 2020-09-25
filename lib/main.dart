@@ -2,14 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:vdart/dashboard/home.dart';
-import 'package:vdart/login.dart';
-import 'package:vdart/onboardingui.dart';
-import 'package:vdart/profile/changepassword.dart';
-import 'package:vdart/profile/editingpersonalinfo.dart';
-import 'package:vdart/profile/personaldocuments.dart';
-import 'package:vdart/profile/personalinfo.dart';
+import 'package:vdart/onboardingscreen/onboardingui.dart';
+import 'package:vdart/screens/home/home.dart';
 
 import 'package:vdart/utils.dart/styles.dart';
 
@@ -51,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
 //Initialize startTime() for predict duration limit.
   startTime() async {
     SharedPreferences vdart = await SharedPreferences.getInstance();
-    //  vdart.clear();
+    // vdart.clear();
     bool firstTime = vdart.getBool('first_time');
 
     var _duration = new Duration(seconds: 1);

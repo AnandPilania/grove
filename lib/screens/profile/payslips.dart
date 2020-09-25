@@ -3,18 +3,15 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vdart/profile/editingjobinfo.dart';
-import 'package:vdart/profile/editingpersonalinfo.dart';
-import 'package:vdart/profile/infodata.dart';
-import 'package:vdart/signin.dart';
+import 'package:vdart/screens/profile/infodata.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
-class CompanyInfo extends StatefulWidget {
+class Payslips extends StatefulWidget {
   @override
-  _CompanyInfo createState() => _CompanyInfo();
+  _Payslips createState() => _Payslips();
 }
 
-class _CompanyInfo extends State<CompanyInfo> {
+class _Payslips extends State<Payslips> {
   double ht, wt;
 
   var hst = TextStyle(
@@ -92,13 +89,12 @@ class _CompanyInfo extends State<CompanyInfo> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                SizedBox(height: ht / 8),
-                                CircleAvatar(
-                                  radius: 50,
-                                  backgroundColor: Colors.grey[200],
-                                  child: Icon(Icons.image,
-                                      color: Colors.white, size: 45),
-                                ),
+                                SizedBox(height: ht / 4),
+                                Container(
+                                    height: 100,
+                                    width: 100,
+                                    child:
+                                        Image.asset('assets/images/nodoc.png')),
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -106,15 +102,14 @@ class _CompanyInfo extends State<CompanyInfo> {
                                     width: wt / 1.7,
                                     child: Padding(
                                         padding: EdgeInsets.all(4.0),
-                                        child: Center(
-                                            child: Text(
-                                          "Tailermade",
+                                        child: Text(
+                                          "There's no documents. Upload some to create one source of truth.",
                                           style: TextStyle(
-                                              fontSize: wt / 20,
-                                              color: fontColor,
+                                              fontSize: wt / 30,
+                                              color: Colors.blueGrey[200],
                                               letterSpacing: 0.5,
-                                              fontWeight: FontWeight.w800),
-                                        ))))
+                                              fontWeight: FontWeight.w400),
+                                        )))
                               ],
                             )))
 
@@ -167,7 +162,7 @@ class _CompanyInfo extends State<CompanyInfo> {
 
   Widget _buildHead() {
     return Text(
-      "Company Info",
+      "Payslips",
       style: hst.copyWith(fontSize: wt / 22),
     );
   }

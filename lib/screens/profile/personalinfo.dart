@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:vdart/profile/editinghomepage.dart';
-import 'package:vdart/profile/editingpersonalinfo.dart';
-import 'package:vdart/profile/infodata.dart';
-import 'package:vdart/signin.dart';
+import 'package:vdart/screens/profile/editingpersonalinfo.dart';
+import 'package:vdart/screens/profile/infodata.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
-class HomeAddressInfo extends StatefulWidget {
+class PersonalInfo extends StatefulWidget {
   @override
-  _HomeAddressInfo createState() => _HomeAddressInfo();
+  _PersonalInfo createState() => _PersonalInfo();
 }
 
-class _HomeAddressInfo extends State<HomeAddressInfo> {
+class _PersonalInfo extends State<PersonalInfo> {
   double ht, wt;
   var hst = TextStyle(
       color: fontColor, letterSpacing: 1, fontWeight: FontWeight.w700);
@@ -23,6 +21,7 @@ class _HomeAddressInfo extends State<HomeAddressInfo> {
   @override
   void initState() {
     //   i.data();
+    print("Data is" + i.fullNameC.text);
   }
 
   @override
@@ -66,7 +65,7 @@ class _HomeAddressInfo extends State<HomeAddressInfo> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EditingHomePage()),
+                                builder: (context) => EditingPage()),
                           );
                         });
                       },
@@ -84,11 +83,16 @@ class _HomeAddressInfo extends State<HomeAddressInfo> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(padding: EdgeInsets.all(7.0), child: _buildHead()),
-                    combo("Full Address", i.fullAddressC),
-                    combo("Country", i.countryC),
-                    combo("State/Province", i.stateC),
-                    combo("Select City", i.cityC),
-                    combo("Postal code", i.postalcodeC),
+                    combo("Full Name", i.fullNameC),
+                    combo("Date of Birth", i.dobC),
+                    combo("Nationality", i.nationalityC),
+                    combo("Email Address", i.emailC),
+                    combo("Phone Number", i.phnnoC),
+                    combo("Gender", i.genderC),
+                    combo("Marital Status", i.maritalC),
+                    combo("Personal Tax ID", i.personaltax),
+                    combo("Social Insurance", i.socialInsurance),
+                    combo("Health Insurance", i.healthInsurance),
                   ],
                 ),
               ))
@@ -109,7 +113,7 @@ class _HomeAddressInfo extends State<HomeAddressInfo> {
 
   Widget _buildHead() {
     return Text(
-      "Home Address",
+      "Personal Info",
       style: hst.copyWith(fontSize: wt / 19),
     );
   }

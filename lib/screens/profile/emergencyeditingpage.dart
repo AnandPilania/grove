@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vdart/globals.dart';
-import 'package:vdart/profile/infodata.dart';
+import 'package:vdart/screens/profile/infodata.dart';
+import 'package:vdart/utils.dart/globals.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
 class EmergencyEditingPage extends StatefulWidget {

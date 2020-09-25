@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vdart/globals.dart';
+import 'package:vdart/utils.dart/globals.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
 class Activity extends StatefulWidget {
@@ -51,7 +51,7 @@ class _Activity extends State<Activity> {
                       ),
                     ]),
                 Container(
-                    height: ht / 1.3,
+                    height: wt * 1.32,
                     width: wt,
                     child: ListView.builder(
                         itemCount: notilist.length,

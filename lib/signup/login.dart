@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vdart/checknet.dart';
-import 'package:vdart/dashboard/home.dart';
-import 'package:vdart/divider.dart';
-import 'package:vdart/globals.dart';
-import 'package:vdart/signin.dart';
-import 'package:vdart/socialicon.dart';
+import 'package:vdart/screens/home/home.dart';
+import 'package:vdart/signup/signin.dart';
+import 'package:vdart/utils.dart/checknet.dart';
+import 'package:vdart/utils.dart/divider.dart';
+import 'package:vdart/utils.dart/globals.dart';
+import 'package:vdart/utils.dart/socialicon.dart';
 import 'package:vdart/utils.dart/styles.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
@@ -27,10 +27,13 @@ class _LoginPage extends State<LoginPage> {
   TextEditingController pwdController = TextEditingController();
   bool _isLoggedIn = false;
   Map userProfile;
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
+
   final facebookLogin = FacebookLogin();
   String _message = 'Log in/out by pressing the buttons below.';
   String pass;
   double ht, wt;
+  bool _load = false;
   @override
   void initState() {
     super.initState();
@@ -47,7 +50,9 @@ class _LoginPage extends State<LoginPage> {
   }
 
   _loginWithFB() async {
-    final result = await facebookLogin.logInWithReadPermissions(['email']);
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+
+    //  final result = await facebookLogin.logInWithReadPermissions(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
@@ -138,6 +143,9 @@ class _LoginPage extends State<LoginPage> {
                             iconSrc: "assets/images/google-plus.svg",
                             press: () {
                               //do google signin
+                              setState(() {
+                                _load = !_load;
+                              });
                               checkingnet(context);
 
                               if (checknet == 'connected') {

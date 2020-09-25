@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:vdart/profile/editingpersonalinfo.dart';
-import 'package:vdart/profile/infodata.dart';
-import 'package:vdart/signin.dart';
+import 'package:vdart/screens/profile/emergencyeditingpage.dart';
+import 'package:vdart/screens/profile/infodata.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
-class PersonalInfo extends StatefulWidget {
+class EmergencyInfo extends StatefulWidget {
   @override
-  _PersonalInfo createState() => _PersonalInfo();
+  _EmergencyInfo createState() => _EmergencyInfo();
 }
 
-class _PersonalInfo extends State<PersonalInfo> {
+class _EmergencyInfo extends State<EmergencyInfo> {
   double ht, wt;
   var hst = TextStyle(
       color: fontColor, letterSpacing: 1, fontWeight: FontWeight.w700);
@@ -22,7 +21,7 @@ class _PersonalInfo extends State<PersonalInfo> {
   @override
   void initState() {
     //   i.data();
-    print("Data is" + i.fullNameC.text);
+    // print("Data is" + i.fullNameC.text);
   }
 
   @override
@@ -61,12 +60,12 @@ class _PersonalInfo extends State<PersonalInfo> {
                       icon: Icon(Icons.edit),
                       onPressed: () {
                         setState(() {
-                          print("press profileinfo edit page");
+                          print("press emergencyinfo edit page");
                           //navigate to edit page
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EditingPage()),
+                                builder: (context) => EmergencyEditingPage()),
                           );
                         });
                       },
@@ -85,15 +84,8 @@ class _PersonalInfo extends State<PersonalInfo> {
                   children: <Widget>[
                     Padding(padding: EdgeInsets.all(7.0), child: _buildHead()),
                     combo("Full Name", i.fullNameC),
-                    combo("Date of Birth", i.dobC),
-                    combo("Nationality", i.nationalityC),
-                    combo("Email Address", i.emailC),
                     combo("Phone Number", i.phnnoC),
-                    combo("Gender", i.genderC),
-                    combo("Marital Status", i.maritalC),
-                    combo("Personal Tax ID", i.personaltax),
-                    combo("Social Insurance", i.socialInsurance),
-                    combo("Health Insurance", i.healthInsurance),
+                    combo("Relationship", i.relationshipC),
                   ],
                 ),
               ))
@@ -114,7 +106,7 @@ class _PersonalInfo extends State<PersonalInfo> {
 
   Widget _buildHead() {
     return Text(
-      "Personal Info",
+      "Emergency Contact",
       style: hst.copyWith(fontSize: wt / 19),
     );
   }

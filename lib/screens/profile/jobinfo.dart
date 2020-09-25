@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vdart/profile/editingjobinfo.dart';
-import 'package:vdart/profile/editingpersonalinfo.dart';
-import 'package:vdart/profile/infodata.dart';
-import 'package:vdart/signin.dart';
+import 'package:vdart/screens/profile/editingjobinfo.dart';
+import 'package:vdart/screens/profile/infodata.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
 class JobInfo extends StatefulWidget {

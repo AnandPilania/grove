@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences: ^0.5.7
+  shared_preferences: ^0.5.11
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -34,9 +34,12 @@ dependencies:
   
   google_sign_in: ^4.4.4
   http: ^0.12.0+2
-  flutter_facebook_login: 
+  flutter_facebook_login: ^3.0.0
   fluttertoast: ^7.1.1
   file_picker: 
+  flutter_spinkit: ^4.1.2+1
+  share: ^0.6.3+6
+  url_launcher: ^5.4.2
 
 
 dev_dependencies:

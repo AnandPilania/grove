@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:vdart/profile/editingpersonalinfo.dart';
-import 'package:vdart/profile/emergencyeditingpage.dart';
-import 'package:vdart/profile/infodata.dart';
-import 'package:vdart/signin.dart';
+import 'package:vdart/screens/profile/editinghomepage.dart';
+import 'package:vdart/screens/profile/infodata.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
-class EmergencyInfo extends StatefulWidget {
+class HomeAddressInfo extends StatefulWidget {
   @override
-  _EmergencyInfo createState() => _EmergencyInfo();
+  _HomeAddressInfo createState() => _HomeAddressInfo();
 }
 
-class _EmergencyInfo extends State<EmergencyInfo> {
+class _HomeAddressInfo extends State<HomeAddressInfo> {
   double ht, wt;
   var hst = TextStyle(
       color: fontColor, letterSpacing: 1, fontWeight: FontWeight.w700);
@@ -23,7 +21,6 @@ class _EmergencyInfo extends State<EmergencyInfo> {
   @override
   void initState() {
     //   i.data();
-    // print("Data is" + i.fullNameC.text);
   }
 
   @override
@@ -62,12 +59,12 @@ class _EmergencyInfo extends State<EmergencyInfo> {
                       icon: Icon(Icons.edit),
                       onPressed: () {
                         setState(() {
-                          print("press emergencyinfo edit page");
+                          print("press profileinfo edit page");
                           //navigate to edit page
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EmergencyEditingPage()),
+                                builder: (context) => EditingHomePage()),
                           );
                         });
                       },
@@ -85,9 +82,11 @@ class _EmergencyInfo extends State<EmergencyInfo> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(padding: EdgeInsets.all(7.0), child: _buildHead()),
-                    combo("Full Name", i.fullNameC),
-                    combo("Phone Number", i.phnnoC),
-                    combo("Relationship", i.relationshipC),
+                    combo("Full Address", i.fullAddressC),
+                    combo("Country", i.countryC),
+                    combo("State/Province", i.stateC),
+                    combo("Select City", i.cityC),
+                    combo("Postal code", i.postalcodeC),
                   ],
                 ),
               ))
@@ -108,7 +107,7 @@ class _EmergencyInfo extends State<EmergencyInfo> {
 
   Widget _buildHead() {
     return Text(
-      "Emergency Contact",
+      "Home Address",
       style: hst.copyWith(fontSize: wt / 19),
     );
   }

@@ -2,18 +2,18 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vdart/globals.dart';
-import 'package:vdart/login.dart';
-import 'package:vdart/profile/changepassword.dart';
-import 'package:vdart/profile/companyinfo.dart';
-import 'package:vdart/profile/contracts.dart';
-import 'package:vdart/profile/dependentinfo.dart';
-import 'package:vdart/profile/emergencycontact.dart';
-import 'package:vdart/profile/homeaddress.dart';
-import 'package:vdart/profile/jobinfo.dart';
-import 'package:vdart/profile/payslips.dart';
-import 'package:vdart/profile/personaldocuments.dart';
-import 'package:vdart/profile/personalinfo.dart';
+import 'package:vdart/screens/profile/changepassword.dart';
+import 'package:vdart/screens/profile/companyinfo.dart';
+import 'package:vdart/screens/profile/contracts.dart';
+import 'package:vdart/screens/profile/dependentinfo.dart';
+import 'package:vdart/screens/profile/emergencycontact.dart';
+import 'package:vdart/screens/profile/homeaddress.dart';
+import 'package:vdart/screens/profile/jobinfo.dart';
+import 'package:vdart/screens/profile/payslips.dart';
+import 'package:vdart/screens/profile/personaldocuments.dart';
+import 'package:vdart/screens/profile/personalinfo.dart';
+import 'package:vdart/signup/login.dart';
+import 'package:vdart/utils.dart/globals.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
 class Profile extends StatefulWidget {
@@ -61,177 +61,181 @@ class _Profile extends State<Profile> {
   Widget build(BuildContext context) {
     ht = MediaQuery.of(context).size.height;
     wt = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.only(top: 30),
-            height: wt / 5.5,
-            width: wt,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    _modalBottomSheetMenu();
-                  },
-                  icon: Icon(Icons.settings),
-                  color: Colors.grey[600],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: wt / 2,
-            // color: Colors.red,
-            width: wt,
-            color: Colors.white,
-            padding: EdgeInsets.only(top: 1.0, bottom: 2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  radius: 50.0,
-                  backgroundImage: AssetImage("assets/images/person.png"),
-                  backgroundColor: Colors.transparent,
-                ),
-                SizedBox(height: 6),
-                Text("Karthika Velmurugan",
-                    style: TextStyle(
-                        color: fontColor,
-                        fontSize: wt / 20,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w700)),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+        backgroundColor: bgcolor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(top: 30),
+                height: wt / 5.5,
+                width: wt,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        print("show tick :" + _showTick.toString());
-                        setState(() {
-                          _showTick = !_showTick;
-                          print("At the office");
-                          Fluttertoast.showToast(
-                              msg: "At the Office",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: toastColor,
-                              textColor: Colors.white,
-                              fontSize: wt / 20);
-                        });
+                    IconButton(
+                      onPressed: () {
+                        _modalBottomSheetMenu();
                       },
-                      child: Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.green[400],
-                        ),
-                        child: _showTick
-                            ? Icon(Icons.check, color: Colors.white, size: 20)
-                            : Text(""),
-                      ),
+                      icon: Icon(Icons.settings),
+                      color: Colors.grey[600],
                     ),
-                    SizedBox(width: wt / 22),
-                    InkWell(
-                      onTap: () {
-                        print("show tick :" + _showTick.toString());
-                        setState(() {
-                          _showTick = !_showTick;
-                          print("At the home");
-                          Fluttertoast.showToast(
-                              msg: "At the Home",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: toastColor,
-                              textColor: Colors.white,
-                              fontSize: wt / 20);
-                        });
-                      },
-                      child: Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.orange[800],
-                        ),
-                        child: !_showTick
-                            ? Icon(Icons.check, color: Colors.white, size: 20)
-                            : Text(""),
-                      ),
-                    ),
-                    SizedBox(width: wt / 22),
-                    InkWell(
-                      child: Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                                width: 2,
-                                color: Colors.green,
-                                style: BorderStyle.solid)),
-                      ),
-                    )
                   ],
                 ),
-              ],
-            ),
-          ),
-          showoption("Personal Info", 1),
-          showoption("Home Address", 2),
-          showoption("Emergency Contact", 3),
-          showoption("Job Information", 4),
-          showoption("Personal Documents", 5),
-          showoption("Contracts", 6),
-          showoption("Payslips", 7),
-          showoption("Dependents", 8),
-          showoption("Company Info", 9),
-          Container(
-            decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(width: 1.0, color: Colors.grey[200]),
-                ),
-                color: Colors.white),
-            // color: Colors.white,
-            width: wt,
-            height: ht / 16,
-            child: ListTile(
-              title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+              Container(
+                height: wt / 2,
+                // color: Colors.red,
+                width: wt,
+                color: Colors.white,
+                padding: EdgeInsets.only(top: 1.0, bottom: 2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      "Welcome Video",
-                      style:
-                          TextStyle(color: Colors.grey[400], fontSize: wt / 25),
+                    CircleAvatar(
+                      radius: 50.0,
+                      backgroundImage: AssetImage("assets/images/person.png"),
+                      backgroundColor: Colors.transparent,
                     ),
-                    SizedBox(width: 2),
-                    Text(
-                      "Please input .mp4 file",
-                      style:
-                          TextStyle(color: Colors.grey[400], fontSize: wt / 30),
+                    SizedBox(height: 6),
+                    Text("Karthika Velmurugan",
+                        style: TextStyle(
+                            color: fontColor,
+                            fontSize: wt / 20,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w700)),
+                    SizedBox(
+                      height: 10,
                     ),
-                  ]),
-              trailing: Image.asset('assets/images/arrowright.png',
-                  height: 14, width: 14),
-              onTap: () {
-                // Update the state of the app.
-                // ...
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () {
+                            print("show tick :" + _showTick.toString());
+                            setState(() {
+                              _showTick = !_showTick;
+                              print("At the office");
+                              Fluttertoast.showToast(
+                                  msg: "At the Office",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: toastColor,
+                                  textColor: Colors.white,
+                                  fontSize: wt / 20);
+                            });
+                          },
+                          child: Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.green[400],
+                            ),
+                            child: _showTick
+                                ? Icon(Icons.check,
+                                    color: Colors.white, size: 20)
+                                : Text(""),
+                          ),
+                        ),
+                        SizedBox(width: wt / 22),
+                        InkWell(
+                          onTap: () {
+                            print("show tick :" + _showTick.toString());
+                            setState(() {
+                              _showTick = !_showTick;
+                              print("At the home");
+                              Fluttertoast.showToast(
+                                  msg: "At the Home",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: toastColor,
+                                  textColor: Colors.white,
+                                  fontSize: wt / 20);
+                            });
+                          },
+                          child: Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.orange[800],
+                            ),
+                            child: !_showTick
+                                ? Icon(Icons.check,
+                                    color: Colors.white, size: 20)
+                                : Text(""),
+                          ),
+                        ),
+                        SizedBox(width: wt / 22),
+                        InkWell(
+                          child: Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                    width: 2,
+                                    color: Colors.green,
+                                    style: BorderStyle.solid)),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              showoption("Personal Info", 1),
+              showoption("Home Address", 2),
+              showoption("Emergency Contact", 3),
+              showoption("Job Information", 4),
+              showoption("Personal Documents", 5),
+              showoption("Contracts", 6),
+              showoption("Payslips", 7),
+              showoption("Dependents", 8),
+              showoption("Company Info", 9),
+              Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 1.0, color: Colors.grey[200]),
+                    ),
+                    color: Colors.white),
+                // color: Colors.white,
+                width: wt,
+                height: ht / 16,
+                child: ListTile(
+                  title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Welcome Video",
+                          style: TextStyle(
+                              color: Colors.grey[400], fontSize: wt / 25),
+                        ),
+                        SizedBox(width: 2),
+                        Text(
+                          "Please input .mp4 file",
+                          style: TextStyle(
+                              color: Colors.grey[400], fontSize: wt / 30),
+                        ),
+                      ]),
+                  trailing: Image.asset('assets/images/arrowright.png',
+                      height: 14, width: 14),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
 
-                _showRequestVideo();
-              },
-            ),
+                    _showRequestVideo();
+                  },
+                ),
+              ),
+              version(),
+            ],
           ),
-          version(),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget showoption(String option, int no) {
@@ -484,7 +488,7 @@ class _Profile extends State<Profile> {
                                                       videoFile = !videoFile;
                                                       print("video added!");
                                                       notilist.add(
-                                                          "Your welcome video has beenn added");
+                                                          "Your welcome video has been added");
                                                       Navigator.pop(context);
                                                     });
                                                   },

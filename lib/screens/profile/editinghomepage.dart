@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:vdart/globals.dart';
-import 'package:vdart/profile/infodata.dart';
+import 'package:vdart/screens/profile/infodata.dart';
+import 'package:vdart/utils.dart/globals.dart';
 import 'package:vdart/utils.dart/styles.dart';
 
-class EditingPage extends StatefulWidget {
+class EditingHomePage extends StatefulWidget {
   @override
-  _EditingPage createState() => _EditingPage();
+  _EditingHomePage createState() => _EditingHomePage();
 }
 
-class _EditingPage extends State<EditingPage> {
-  String _dropDownNationalValue, _dropDownMaritalValue, _dropDownGenderValue;
-  DateTime pickedDate;
+class _EditingHomePage extends State<EditingHomePage> {
+  String _dropDownCountryValue, _dropDownStateValue, _dropDownCityValue;
+
   double ht, wt;
-  List genderlist = ['Male', 'Female'];
-  List maritallist = ['Single', 'Married'];
-  List nationallist = [
+  List statelist = ['TamilNadu', 'Andhra'];
+  List citylist = ['Thanjavur', 'Trichy'];
+  List countrylist = [
     'Afghan',
     'Albanian',
     'Algerian',
@@ -57,21 +57,12 @@ class _EditingPage extends State<EditingPage> {
       fontWeight: FontWeight.w500,
       color: Colors.blueGrey[400]);
   InfoData i = new InfoData();
-  String fullname,
-      dob,
-      national,
-      emailadd,
-      phnno,
-      gender,
-      marital,
-      personaltax,
-      socialinsurane,
-      healthinsurance;
+  String fulladdress, country, state, city, postalcode;
+
   @override
   void initState() {
     //  i.data();
     //remodify the pickeddate value as from DB
-    pickedDate = DateTime.now();
   }
 
   @override
@@ -121,9 +112,9 @@ class _EditingPage extends State<EditingPage> {
                       ),
                       onTap: () {
                         // _savedData();
-                        notilist.add(
-                            "Your information in Personal Info has been changed");
                         print("saved");
+                        notilist.add(
+                            "Your information in Home Address has been changed");
                         Navigator.pop(context);
                       },
                     ),
@@ -140,21 +131,17 @@ class _EditingPage extends State<EditingPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(padding: EdgeInsets.all(7.0), child: _buildHead()),
-                    combo('First Name *', i.fullNameC, 1),
-                    combo('Last Name *', i.fullNameC, 2),
-                    // combo('Date of Birth', i.dobC, 3),
-                    dobField('Date of Birth', 3),
-                    chooseNationalDropBox('Nationality'),
+                    combo('Full Address', i.fullAddressC, 1),
+
+                    chooseCountryDropBox('Select Country'),
                     //  combo('Nationality', i.nationalityC, 4),
-                    combo('Email Address *', i.emailC, 5),
-                    combo('Phone Number', i.phnnoC, 6),
-                    chooseGenderDropBox('Gender'),
+
+                    chooseStateDropBox('Select State/Province'),
                     // combo('Gender', i.genderC, 7),
-                    chooseMaritalDropBox('Marital Status'),
+                    chooseCityDropBox('Select City'),
                     // combo('Marital Status', i.maritalC, 7),
-                    combo('Personal Tax ID', i.personaltax, 9),
-                    combo('Social Insurance', i.socialInsurance, 10),
-                    combo('Health Insurance', i.healthInsurance, 11),
+
+                    combo('Postal Code', i.postalcodeC, 2),
 
                     /*   ListTile(
                       title: Text(
@@ -169,7 +156,7 @@ class _EditingPage extends State<EditingPage> {
         ]))));
   }
 
-  Widget chooseNationalDropBox(String label) {
+  Widget chooseCountryDropBox(String label) {
     return Container(
         padding: EdgeInsets.all(4.0),
         child: Column(
@@ -187,10 +174,10 @@ class _EditingPage extends State<EditingPage> {
                     iconEnabledColor: Colors.green[300],
                     iconDisabledColor: Colors.green[300],
                     underline: SizedBox(height: 5),
-                    hint: _dropDownNationalValue == null
+                    hint: _dropDownCountryValue == null
                         ? Center(
                             child: Text(
-                            "Select Nationality",
+                            "Select Country",
                             style: TextStyle(
                                 fontSize: wt / 26,
                                 height: 1,
@@ -200,7 +187,7 @@ class _EditingPage extends State<EditingPage> {
                           ))
                         : Center(
                             child: Text(
-                            _dropDownNationalValue,
+                            _dropDownCountryValue,
                             style: TextStyle(
                                 fontSize: wt / 26,
                                 height: 1,
@@ -216,7 +203,7 @@ class _EditingPage extends State<EditingPage> {
                         letterSpacing: 1,
                         fontWeight: FontWeight.w600),
                     isDense: false,
-                    items: nationallist.map(
+                    items: countrylist.map(
                       (val) {
                         return DropdownMenuItem<String>(
                           value: val,
@@ -235,204 +222,14 @@ class _EditingPage extends State<EditingPage> {
                     onChanged: (val) {
                       setState(
                         () {
-                          _dropDownNationalValue = val;
-                          national = val;
+                          _dropDownCountryValue = val;
+                          country = val;
                         },
                       );
                     },
                   ),
                 ),
               )
-            ]));
-  }
-
-  Widget chooseGenderDropBox(String label) {
-    return Container(
-        padding: EdgeInsets.all(4.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildLabel(label),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-                color: cardColor,
-                child: Center(
-                  child: DropdownButton(
-                    iconEnabledColor: Colors.green[300],
-                    iconDisabledColor: Colors.green[300],
-                    underline: SizedBox(height: 0.8),
-                    hint: _dropDownGenderValue == null
-                        ? Center(
-                            child: Text(
-                            "Select Gender",
-                            style: TextStyle(
-                                fontSize: wt / 26,
-                                height: 1,
-                                color: Colors.blueGrey[300],
-                                letterSpacing: 0.5,
-                                fontWeight: FontWeight.w500),
-                          ))
-                        : Center(
-                            child: Text(
-                            _dropDownGenderValue,
-                            style: TextStyle(
-                                fontSize: wt / 26,
-                                height: 1,
-                                color: fontColor,
-                                letterSpacing: 0.5,
-                                fontWeight: FontWeight.w500),
-                          )),
-                    isExpanded: true,
-                    iconSize: 28.0,
-                    style: TextStyle(
-                        fontSize: wt / 30,
-                        color: Colors.black,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w600),
-                    isDense: false,
-                    items: genderlist.map(
-                      (val) {
-                        return DropdownMenuItem<String>(
-                          value: val,
-                          child: Text(
-                            val,
-                            style: TextStyle(
-                                fontSize: wt / 26,
-                                height: 1,
-                                color: fontColor,
-                                letterSpacing: 0.5,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (val) {
-                      setState(
-                        () {
-                          _dropDownGenderValue = val;
-                          gender = val;
-                        },
-                      );
-                    },
-                  ),
-                ),
-              )
-            ]));
-  }
-
-  Widget chooseMaritalDropBox(String label) {
-    return Container(
-        padding: EdgeInsets.all(4.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildLabel(label),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-                color: cardColor,
-                child: Center(
-                  child: DropdownButton(
-                    iconEnabledColor: Colors.green[300],
-                    iconDisabledColor: Colors.green[300],
-                    underline: SizedBox(height: 0.8),
-                    hint: _dropDownMaritalValue == null
-                        ? Center(
-                            child: Text(
-                            "Select Marital Status",
-                            style: TextStyle(
-                                fontSize: wt / 26,
-                                height: 1,
-                                color: Colors.blueGrey[300],
-                                letterSpacing: 0.5,
-                                fontWeight: FontWeight.w500),
-                          ))
-                        : Center(
-                            child: Text(
-                            _dropDownMaritalValue,
-                            style: TextStyle(
-                                fontSize: wt / 26,
-                                height: 1,
-                                color: fontColor,
-                                letterSpacing: 0.5,
-                                fontWeight: FontWeight.w500),
-                          )),
-                    isExpanded: true,
-                    iconSize: 28.0,
-                    style: TextStyle(
-                        fontSize: wt / 30,
-                        color: Colors.black,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w600),
-                    isDense: false,
-                    items: maritallist.map(
-                      (val) {
-                        return DropdownMenuItem<String>(
-                          value: val,
-                          child: Text(
-                            val,
-                            style: TextStyle(
-                                fontSize: wt / 26,
-                                height: 1,
-                                color: fontColor,
-                                letterSpacing: 0.5,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (val) {
-                      setState(
-                        () {
-                          _dropDownMaritalValue = val;
-                          marital = val;
-                        },
-                      );
-                    },
-                  ),
-                ),
-              )
-            ]));
-  }
-
-  Widget dobField(String label, int i) {
-    return Container(
-        padding: EdgeInsets.all(4.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildLabel(label),
-              Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  color: cardColor,
-                  child: Center(
-                      child: ListTile(
-                    title: Center(
-                      child: Text(
-                        "${pickedDate.day} ${months[pickedDate.month - 1]} ${pickedDate.year}",
-                        style: TextStyle(
-                            fontSize: wt / 26,
-                            height: 1,
-                            color: fontColor,
-                            letterSpacing: 0.5,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.date_range,
-                      size: 20,
-                      color: Colors.green[300],
-                    ),
-                    onTap: _pickDate,
-                  )))
             ]));
   }
 
@@ -448,46 +245,177 @@ class _EditingPage extends State<EditingPage> {
             ]));
   }
 
+  Widget chooseStateDropBox(String label) {
+    return Container(
+        padding: EdgeInsets.all(4.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              _buildLabel(label),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                color: cardColor,
+                child: Center(
+                  child: DropdownButton(
+                    iconEnabledColor: Colors.green[300],
+                    iconDisabledColor: Colors.green[300],
+                    underline: SizedBox(height: 0.8),
+                    hint: _dropDownStateValue == null
+                        ? Center(
+                            child: Text(
+                            "Select State/Province",
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: Colors.blueGrey[300],
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          ))
+                        : Center(
+                            child: Text(
+                            _dropDownStateValue,
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: fontColor,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          )),
+                    isExpanded: true,
+                    iconSize: 28.0,
+                    style: TextStyle(
+                        fontSize: wt / 30,
+                        color: Colors.black,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w600),
+                    isDense: false,
+                    items: statelist.map(
+                      (val) {
+                        return DropdownMenuItem<String>(
+                          value: val,
+                          child: Text(
+                            val,
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: fontColor,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (val) {
+                      setState(
+                        () {
+                          _dropDownStateValue = val;
+                          state = val;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              )
+            ]));
+  }
+
+  Widget chooseCityDropBox(String label) {
+    return Container(
+        padding: EdgeInsets.all(4.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              _buildLabel(label),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                color: cardColor,
+                child: Center(
+                  child: DropdownButton(
+                    iconEnabledColor: Colors.green[300],
+                    iconDisabledColor: Colors.green[300],
+                    underline: SizedBox(height: 0.8),
+                    hint: _dropDownCityValue == null
+                        ? Center(
+                            child: Text(
+                            "Select City",
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: Colors.blueGrey[300],
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          ))
+                        : Center(
+                            child: Text(
+                            _dropDownCityValue,
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: fontColor,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          )),
+                    isExpanded: true,
+                    iconSize: 28.0,
+                    style: TextStyle(
+                        fontSize: wt / 30,
+                        color: Colors.black,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w600),
+                    isDense: false,
+                    items: citylist.map(
+                      (val) {
+                        return DropdownMenuItem<String>(
+                          value: val,
+                          child: Text(
+                            val,
+                            style: TextStyle(
+                                fontSize: wt / 26,
+                                height: 1,
+                                color: fontColor,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (val) {
+                      setState(
+                        () {
+                          _dropDownCityValue = val;
+                          city = val;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              )
+            ]));
+  }
+
   _savedData() {
-    print("Current saved Data is:\n" +
-        fullname +
-        "\n" +
-        dob +
-        "\n" +
-        national +
-        "\n" +
-        emailadd +
-        "\n" +
-        phnno +
-        "\n" +
-        gender +
-        "\n" +
-        marital +
-        "\n" +
-        personaltax +
-        "\n" +
-        socialinsurane +
-        "\n" +
-        healthinsurance);
     setState(() {
-      i.fullNameC.text = fullname;
+      i.fullAddressC.text = fulladdress;
       //  i.dobC.text = dob;
       // i.nationalityC.text = national;
-      i.emailC.text = emailadd;
-      i.phnnoC.text = phnno;
+      i.countryC.text = country;
+      i.stateC.text = state;
       //  i.genderC.text = gender;
       //  i.maritalC.text = marital;
-      i.personaltax.text = personaltax;
-      i.socialInsurance.text = socialinsurane;
-      i.healthInsurance.text = healthinsurance;
-
-      //print("controller:" + i.fullNameC.text + "and" + fullname);
+      i.cityC.text = city;
+      i.postalcodeC.text = postalcode;
     });
   }
 
   Widget _buildHead() {
     return Text(
-      "Personal Info",
+      "Home Address",
       style: hst.copyWith(fontSize: wt / 19),
     );
   }
@@ -512,25 +440,9 @@ class _EditingPage extends State<EditingPage> {
             setState(() {
               print("After changed" + c.text);
               if (index == 1) {
-                fullname = value;
+                fulladdress = value;
               } else if (index == 2) {
-                dob = value;
-              } else if (index == 3) {
-                national = value;
-              } else if (index == 4) {
-                emailadd = value;
-              } else if (index == 5) {
-                phnno = value;
-              } else if (index == 6) {
-                gender = value;
-              } else if (index == 7) {
-                marital = value;
-              } else if (index == 8) {
-                personaltax = value;
-              } else if (index == 9) {
-                socialinsurane = value;
-              } else if (index == 10) {
-                healthinsurance = value;
+                postalcode = value;
               }
               // = value;
             });
@@ -555,18 +467,5 @@ class _EditingPage extends State<EditingPage> {
         ),
       ),
     );
-  }
-
-  _pickDate() async {
-    DateTime date = await showDatePicker(
-      context: context,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-      initialDate: pickedDate,
-    );
-    if (date != null)
-      setState(() {
-        pickedDate = date;
-      });
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vdart/dashboard/home.dart';
-import 'package:vdart/dashboard/profile.dart';
-import 'package:vdart/globals.dart';
+import 'package:vdart/screens/home/home.dart';
+import 'package:vdart/utils.dart/globals.dart';
 import 'package:vdart/utils.dart/styles.dart';
 import 'errorchangedialogue.dart';
 
